@@ -63,19 +63,16 @@ client.on('message',async msg => {
         }
 
         if (command.startsWith('LEGANGE')) {
+            no_access(msg);
 
-            const fetched1 = await msg.channel.fetchMessages({limit: 100});
-            msg.channel.bulkDelete(fetched1)
-                .catch(error => msg.reply(`Couldn't delete messages because of: ${error}`));
+            var n = 0;
+            while (n < config.gange_lines) {
+                const fetched = await msg.channel.fetchMessages({limit: 100});
+                msg.channel.bulkDelete(fetched)
+                    .catch(error => msg.reply(`Couldn't delete messages because of: ${error}`));
 
-            const fetched2 = await msg.channel.fetchMessages({limit: 100});
-            msg.channel.bulkDelete(fetched2)
-                .catch(error => msg.reply(`Couldn't delete messages because of: ${error}`));
-
-            const fetched3 = await msg.channel.fetchMessages({limit: 100});
-            msg.channel.bulkDelete(fetched3)
-                .catch(error => msg.reply(`Couldn't delete messages because of: ${error}`));
-
+                n++;
+            }
             msg.channel.send("Purifié par le GANGE :ok_hand: :grin:");
         }
     }
@@ -114,6 +111,14 @@ function getRisibankRelated(search) {
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function no_access(msg) {
+    if(!msg.member.roles.some(r=>["Administrator"].includes(r.name)) ) {
+        msg.reply(":410: commande suicidée !");
+        return false;
+    }
+    return true;
 }
 
 const getScript = (url) => {
