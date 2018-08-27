@@ -62,9 +62,7 @@ client.on('message',async msg => {
             msg.reply("The used prefix is " + prefix);
         }
 
-        if (command.startsWith('LEGANGE')) {
-            no_access(msg);
-
+        if (command.startsWith('LEGANGE') && no_access(msg)) {
             var n = 0;
             while (n < config.gange_lines) {
                 const fetched = await msg.channel.fetchMessages({limit: 100});
@@ -115,7 +113,7 @@ function getRandomInt(min, max) {
 
 function no_access(msg) {
     if(!msg.member.roles.some(r=>["Administrator"].includes(r.name)) ) {
-        msg.reply(":410: commande suicidée !");
+        msg.reply(":410: commande suicidée ! - Recommence et je te pète les jambes petit fdp.");
         return false;
     }
     return true;
