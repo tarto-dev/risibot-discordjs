@@ -9,7 +9,7 @@ const config = require("./config.json");
 const loki = require("lokijs");
 var db = new loki('risibank.db', {
     autoload: true,
-    autoloadCallback : databaseInitialize,
+    autoloadCallback: databaseInitialize,
     autosave: true,
     autosaveInterval: 4000
 });
@@ -33,11 +33,11 @@ client.on("guildDelete", guild => {
     client.user.setActivity(`${prefix} - Propage la bonne parole sur ${client.guilds.size} serveurs`);
 });
 
-client.on('message',async msg => {
+client.on('message', async msg => {
     // Prevent "botception".
     if (msg.author.bot) return;
 
-    if(msg.content.indexOf(config.prefix) !== 0) return;
+    if (msg.content.indexOf(config.prefix) !== 0) return;
 
     if (config.debug && msg.author.id != config.root_user) {
         return;
@@ -48,26 +48,53 @@ client.on('message',async msg => {
         }
 
         if (command.startsWith('bank')) {
-            subcommand = command.slice(6);
-            if(subcommand.startsWith('add')) {
+            subcommand = command.slice(5);
+            if (subcommand.startsWith('add')) {
                 var params = subcommand.slice(4);
-
                 var pic_url_idx = params.indexOf(' ');
                 var url = params.substr(0, pic_url_idx);
-                var keywords = params.sub(pic_url_idx + 1);
-                msg.reply('1 : ' + url + ' - 2 : ' + keywords);
+                var keywords = params.substr(pic_url_idx + 1);
+                if (config.debug) {
+                    msg.reply('1 : ' + url + ' - 2 : ' + keywords);
+                }
+
+                removeCaller(msg, 'bank add');
+
+                var db_results = guestabank.find({'url': {'$contains': url}});
+                if (db_results.length == 0) {
+                    guestabank.insert({
+                        url: url,
+                        keywords: keywords
+                    });
+                    var records = guestabank.data.length;
+                    msg.reply(`tu sais, je pratique la MMA depuis 6 ans et possède pas loins de ${records} images !`)
+                } else {
+                    msg.reply("Bien tenté batard, mais un autré clé l'a posté avant toi. Ghostfag va :ghost: ")
+                }
             } else {
-                var db_results = guestabank.find({ 'keywords' : { '$contains' : subcommand } });
-                msg.channel.send('', {
-                    file: db_results[0].url
-                });
+                var db_results = guestabank.find({'keywords': {'$contains': subcommand}});
+
+                removeCaller(msg, 'bank remove');
+
+                if (!config.debug) {
+                    subcommand = '';
+                }
+
+                if (db_results.length == 0) {
+                    msg.reply("Hmm, aucun résultat. C'est vraiment pas de CHANCE ¯\\_(ツ)_/¯");
+                } else {
+
+                    msg.channel.send(subcommand, {
+                        file: db_results[0].url
+                    });
+                }
             }
         }
 
         if (command.startsWith('risibank')) {
             params = command.slice(9);
             risibankUrl = getRisibankRelated(params);
-            msg.delete(100).then(msg => console.log(`Auto-deleted message from ${msg.author.username}`));
+            removeCaller(msg, 'risibank');
             msg.channel.send('', {
                 file: risibankUrl
             });
@@ -90,6 +117,7 @@ client.on('message',async msg => {
         }
 
         if (command.startsWith('LEGANGE') && no_access(msg)) {
+            removeCaller(msg, 'LEGANGE');
             var n = 0;
             while (n < config.gange_lines) {
                 const fetched = await msg.channel.fetchMessages({limit: 100});
@@ -139,7 +167,7 @@ function getRandomInt(min, max) {
 }
 
 function no_access(msg) {
-    if(!msg.member.roles.some(r=>[admin_role_name].includes(r.name)) ) {
+    if (!msg.member.roles.some(r => [admin_role_name].includes(r.name))) {
         msg.reply(":410: commande suicidée ! - Recommence et je te pète les jambes petit fdp.");
         return false;
     }
@@ -178,8 +206,14 @@ const getScript = (url) => {
 
 // implement the autoloadback referenced in loki constructor
 function databaseInitialize() {
-    var entries = db.getCollection("entries");
-    if (entries === null) {
-        entries = db.addCollection("entries");
+    var guestabank = db.getCollection("guestabank");
+    if (guestabank === null) {
+        guestabank = db.addCollection("guestabank");
     }
+}
+
+function removeCaller(msg, caller = '') {
+    caller_log = caller.length ? ' [' + caller + '] ' : '';
+
+    msg.delete(300).then(msg => console.log(`${caller} Auto-deleted message from ${msg.author.username}`));
 }
