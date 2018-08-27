@@ -5,6 +5,16 @@ const jsdom = require("jsdom");
 const {JSDOM} = jsdom;
 
 const config = require("./config.json");
+
+const loki = require("lokijs");
+var db = new loki('risibank.db', {
+    autoload: true,
+    autoloadCallback : databaseInitialize,
+    autosave: true,
+    autosaveInterval: 4000
+});
+
+var guestabank = db.addCollection('guestabank');
 var prefix = config.prefix;
 var admin_role_name = config.admin_role_name
 
@@ -35,6 +45,23 @@ client.on('message',async msg => {
     if (command = isCommand(msg.content)) {
         if (command.startsWith('ping')) {
             msg.reply('Pong!');
+        }
+
+        if (command.startsWith('bank')) {
+            subcommand = command.slide(6);
+            if(subcommand.startsWith('add')) {
+                var params = subcommand.slice(4);
+
+                var pic_url_idx = params.indexOf(' ');
+                var url = params.substr(0, pic_url_idx);
+                var keywords = params.sub(pic_url_idx + 1);
+                msg.reply('1 : ' + url + ' - 2 : ' + keywords);
+            } else {
+                var db_results = guestabank.find({ 'keywords' : { '$contains' : subcommand } });
+                msg.channel.send('', {
+                    file: db_results[0].url
+                });
+            }
         }
 
         if (command.startsWith('risibank')) {
@@ -148,3 +175,11 @@ const getScript = (url) => {
         });
     });
 };
+
+// implement the autoloadback referenced in loki constructor
+function databaseInitialize() {
+    var entries = db.getCollection("entries");
+    if (entries === null) {
+        entries = db.addCollection("entries");
+    }
+}
