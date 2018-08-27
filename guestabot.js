@@ -37,6 +37,10 @@ client.on('message', async msg => {
     // Prevent "botception".
     if (msg.author.bot) return;
 
+    if(msg.content.indexOf("bot")) {
+        msg.reply("Hmm ? Ça parle de moi ?");
+    }
+
     if (msg.content.indexOf(config.prefix) !== 0) return;
 
     if (config.debug && msg.author.id != config.root_user) {
