@@ -60,7 +60,7 @@ client.on('message', msg => {
             msg.reply("The used prefix is " + prefix);
         }
 
-        if (command.startsWith('LE GANGE')) {
+        if (command.startsWith('LEGANGE')) {
 
             // So we get our messages, and delete them. Simple enough, right?
             const fetched = await
