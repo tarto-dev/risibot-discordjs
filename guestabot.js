@@ -5,23 +5,23 @@ const jsdom = require("jsdom");
 const {JSDOM} = jsdom;
 
 const config = require("./config.json");
+var prefix = config.prefix;
+
 
 client.on('ready', () => {
     console.log(`${client.user.tag} has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
-    client.user.setActivity(`Propage la bonne parole sur ${client.guilds.size} serveurs`);
+    client.user.setActivity(`${prefix} - Propage la bonne parole sur ${client.guilds.size} serveurs`);
 });
 
 client.on("guildCreate", guild => {
     console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
-    client.user.setActivity(`Propage la bonne parole sur ${client.guilds.size} serveurs`);
+    client.user.setActivity(`${prefix} - Propage la bonne parole sur ${client.guilds.size} serveurs`);
 });
 
 client.on("guildDelete", guild => {
     console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
-    client.user.setActivity(`Propage la bonne parole sur ${client.guilds.size} serveurs`);
+    client.user.setActivity(`${prefix} - Propage la bonne parole sur ${client.guilds.size} serveurs`);
 });
-
-var prefix = config.prefix;
 
 client.on('message', msg => {
     // Prevent "botception".
