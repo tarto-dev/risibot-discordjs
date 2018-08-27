@@ -64,7 +64,7 @@ client.on('message',async msg => {
 
         if (command.startsWith('LEGANGE')) {
 
-            const fetched = await msg.channel.fetchMessages({limit: 500});
+            const fetched = await msg.channel.fetchMessages({limit: 100});
             msg.channel.bulkDelete(fetched)
                 .catch(error => msg.reply(`Couldn't delete messages because of: ${error}`));
 
