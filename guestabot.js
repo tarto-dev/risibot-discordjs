@@ -9,25 +9,10 @@ const {JSDOM} = jsdom;
 
 const config = require("./config.json");
 
-const loki = require("lokijs");
-
-var db = new loki('risibank.db', {
-    autoload: true,
-    autoloadCallback: databaseInitialize,
-    autosave: true,
-    autosaveInterval: 60000
-});
-
 var prefix = config.prefix;
 var prefixSize = prefix.length;
 var admin_role_name = config.admin_role_name
 var risibank_show_tags = config.show_risitags;
-
-
-var guestabank = db.getCollection("guestabank");
-if (guestabank === null) {
-    guestabank = db.addCollection("guestabank");
-}
 
 client.on('ready', () => {
     console.log(`${client.user.tag} has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
@@ -201,14 +186,6 @@ const getScript = (url) => {
         });
     });
 };
-
-// implement the autoloadback referenced in loki constructor
-function databaseInitialize() {
-    var guestabank = db.getCollection("guestabank");
-    if (guestabank === null) {
-        guestabank = db.addCollection("guestabank");
-    }
-}
 
 function removeCaller(msg, caller = '') {
     caller_log = caller.length ? ' [' + caller + '] ' : '';
