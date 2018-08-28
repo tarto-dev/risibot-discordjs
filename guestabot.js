@@ -13,6 +13,7 @@ var prefix = config.prefix;
 var prefixSize = prefix.length;
 var admin_role_name = config.admin_role_name
 var risibank_show_tags = config.show_risitags;
+var risibank_celestin = config.celestin;
 
 client.on('ready', () => {
     console.log(`${client.user.tag} has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
@@ -63,12 +64,18 @@ client.on('message', async msg => {
                         file: 'http://image.noelshack.com/fichiers/2017/20/1495053127-paslebol.png'
                     });
                 } else {
-                    if(!risibank_show_tags) {
-                        params = '';
+                    if(risibank_celestin) {
+                        msg.reply('demande a afficher ' + params + ' ... #BalanceTonCelestin', {
+                            file: data[Object.keys(data)[0]].risibank_link
+                        });
+                    } else {
+                        if(!risibank_show_tags) {
+                            params = '';
+                        }
+                        msg.channel.send('' + params, {
+                            file: data[Object.keys(data)[0]].risibank_link
+                        });
                     }
-                    msg.channel.send('' + params, {
-                        file: data[Object.keys(data)[0]].risibank_link
-                    });
                 }
             })
         }
@@ -91,6 +98,16 @@ client.on('message', async msg => {
             } else {
                 risibank_show_tags = true;
                 msg.channel.send("Ok, si t'assumes d'afficher tout tes tags chelous sur la risibank :ok_hand: :grin:");
+            }
+        }
+
+        if(command.startsWith('CELESTIN') && no_access(msg)) {
+            if(risibank_show_tags) {
+                risibank_celestin = false;
+                msg.channel.send("Ok, j'arrête d'afficher les Celestins :ok_hand: :grin:");
+            } else {
+                risibank_celestin = true;
+                msg.channel.send("Ok, c'est parti pour afficher les Celestins :ok_hand: :grin:");
             }
         }
 
