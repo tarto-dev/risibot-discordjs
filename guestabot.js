@@ -59,7 +59,7 @@ client.on('message', async msg => {
             var search = rb.searchStickers(params);
             search.then(function(data) {
                 if(data[Object.keys(data)[0]] == undefined) {
-                    msg.channel.send("J'ai pas trouvé de de sticker correspondant à " + params, {
+                    msg.reply("J'ai pas trouvé de de sticker correspondant à " + params, {
                         file: 'http://image.noelshack.com/fichiers/2017/20/1495053127-paslebol.png'
                     });
                 } else {
