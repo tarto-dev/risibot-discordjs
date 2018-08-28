@@ -77,7 +77,11 @@ client.on('message', async msg => {
             msg.reply("Commande accessible : risibank <mot clés>");
             msg.channel.send("Commandes ADMIN : RISITAGS, LEGANGE, SETPREFIX");
             msg.channel.send("Le préfix actuellement est " + prefix);
+        }
+
+        if(command.startsWith("credits")) {
             msg.channel.send("Merci à la risibank (https://risibank.fr/) et à l'élite (https://2sucres.org/)")
+            msg.channel.send("Dev par @BISOU MAGIQUE EN SPRAY#9153 avec les encouragements de @Ourx#4698");
         }
 
         if(command.startsWith('RISITAGS') && no_access(msg)) {
