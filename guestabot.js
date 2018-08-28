@@ -37,7 +37,7 @@ client.on('message', async msg => {
     // Prevent "botception".
     if (msg.author.bot) return;
 
-    if(msg.content.indexOf("bot")) {
+    if(msg.content.indexOf("bot") !== 0) {
         msg.reply("Hmm ? Ça parle de moi ?");
     }
 
