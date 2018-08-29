@@ -93,6 +93,12 @@ client.on('message', async msg => {
             })
         }
 
+        if(command.startsWith('invite')) {
+            msg.reply(`tu peux ajouter Gilbot chez toi en cliquant sur http://bot.benftwc.fr/. P'tit pédé va, je te vois :smirk: :smirk:.`,
+                {file: "http://image.noelshack.com/fichiers/2017/14/1491754742-risigv.png"}
+        );
+        }
+
         if (command.startsWith('help') || command.startsWith('aled')) {
             msg.reply("Commandes accessibles : `credits`, `risibank <mot clés>`");
             msg.channel.send("Commandes ADMIN : RISITAGS, LEGANGE, SETPREFIX");
