@@ -14,6 +14,8 @@ var prefixSize = prefix.length;
 var admin_role_name = config.admin_role_name
 var risibank_show_tags = config.show_risitags;
 var risibank_celestin = config.celestin;
+var bot_presence = config.bot_presence;
+var bot_presence_luck = config.bot_presence_luck
 
 client.on('ready', () => {
     console.log(`${client.user.tag} has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
@@ -35,8 +37,19 @@ client.on('message', async msg => {
     if (msg.author.bot) return;
     var troll_bot_idx = msg.content.indexOf("bot");
     var troll_answers = ["Hmm ? Ça parle de moi ?", "T'as un soucis a parler de moi ? Tu veux que j'appelle Shlomo ?", "Trouve toi un pote frère, arrête de me citer comme ça..."];
-    if(troll_bot_idx > 0) {
-        msg.reply(troll_answers[Math.floor(Math.random()*troll_answers.length)]);
+    if (troll_bot_idx > 0) {
+        console.log('troll');
+        if (bot_presence != "off") {
+            var rng = getRandomInt(0, 100);
+            if (bot_presence == "on") {
+                msg.reply(troll_answers[Math.floor(Math.random() * troll_answers.length)]);
+            } else {
+                if (rng >= (100 - bot_presence_luck)) {
+                    console.log('sent');
+                    msg.reply(troll_answers[Math.floor(Math.random() * troll_answers.length)]);
+                }
+            }
+        }
     }
 
     if (msg.content.indexOf(config.prefix) !== 0) return;
@@ -52,24 +65,24 @@ client.on('message', async msg => {
         if (command.startsWith('risibank') || command.startsWith('risitas')) {
 
             params = command.slice(prefixSize + 8);
-            if(command.startsWith('risitas')) {
+            if (command.startsWith('risitas')) {
                 params = command.slice(prefixSize + 7);
             }
             removeCaller(msg, 'risibank');
 
             var search = rb.searchStickers(params);
-            search.then(function(data) {
-                if(data[Object.keys(data)[0]] == undefined) {
+            search.then(function (data) {
+                if (data[Object.keys(data)[0]] == undefined) {
                     msg.reply("J'ai pas trouvé de de sticker correspondant à " + params, {
                         file: 'http://image.noelshack.com/fichiers/2017/20/1495053127-paslebol.png'
                     });
                 } else {
-                    if(risibank_celestin) {
+                    if (risibank_celestin) {
                         msg.reply('demande a afficher ' + params + ' ... #BalanceTonCelestin', {
                             file: data[Object.keys(data)[0]].risibank_link
                         });
                     } else {
-                        if(!risibank_show_tags) {
+                        if (!risibank_show_tags) {
                             params = '';
                         }
                         msg.channel.send('' + params, {
@@ -86,13 +99,13 @@ client.on('message', async msg => {
             msg.channel.send("Le préfix actuellement est " + prefix);
         }
 
-        if(command.startsWith("credits")) {
+        if (command.startsWith("credits")) {
             msg.channel.send("Merci à la risibank (https://risibank.fr/) et à l'élite (https://2sucres.org/)")
             msg.channel.send("Dev par poneygenial avec les encouragements de Ourx");
         }
 
-        if(command.startsWith('RISITAGS') && no_access(msg)) {
-            if(risibank_show_tags) {
+        if (command.startsWith('RISITAGS') && no_access(msg)) {
+            if (risibank_show_tags) {
                 risibank_show_tags = false;
                 msg.channel.send("Ok, j'arrête de t'afficher avec les tags chelous sur la risibank :ok_hand: :grin:");
             } else {
@@ -101,8 +114,33 @@ client.on('message', async msg => {
             }
         }
 
-        if(command.startsWith('CELESTIN') && no_access(msg)) {
-            if(risibank_celestin) {
+        if (command.startsWith('PRESENCE') && no_access(msg)) {
+            let param = command.slice(prefixSize + 8).toLowerCase();
+            if (param.length < 1) {
+                msg.reply(`La présence du bot est réglée sur ${bot_presence} <${bot_presence_luck}>`);
+                return;
+            }
+
+            let options = ["on", "off"];
+            if (options.indexOf(param) !== -1 || param.startsWith("rng")) {
+                if (param.startsWith("rng")) {
+                    bot_presence = 'rng';
+                    let subparam = +param.slice(4);
+                    bot_presence_luck = subparam;
+                    msg.reply(`La CHANCE du bot est à présent réglée sur ${bot_presence} <${bot_presence_luck}>`);
+                } else if (param === 'on') {
+                    bot_presence = param;
+                    msg.reply(`La présence du bot est à présent réglée sur ${param}`);
+                } else {
+                    msg.reply(`Wesh, t'es con ou quoi ? Y'a 3 options, ON, OFF et RNG. \`${param}\` n'en fait pas parti ...`);
+                }
+            } else {
+                msg.reply(`Wesh, t'es con ou quoi ? Y'a 3 options, ON, OFF et RNG. \`${param}\` n'en fait pas parti ...`);
+            }
+        }
+
+        if (command.startsWith('CELESTIN') && no_access(msg)) {
+            if (risibank_celestin) {
                 risibank_celestin = false;
                 msg.channel.send("Ok, j'arrête d'afficher les Celestins :ok_hand: :grin:");
             } else {
@@ -130,10 +168,10 @@ client.on('message', async msg => {
 
                 n++;
             }
-            msg.channel.send(":ok_hand: :grin:",{
-                file: "http://image.noelshack.com/fichiers/2017/38/5/1506113458-purificationgange.jpg"
-            }
-        );
+            msg.channel.send(":ok_hand: :grin:", {
+                    file: "http://image.noelshack.com/fichiers/2017/38/5/1506113458-purificationgange.jpg"
+                }
+            );
         }
     }
 });
