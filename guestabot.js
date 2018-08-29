@@ -111,7 +111,8 @@ client.on('message', async msg => {
         }
 
         if (command.startsWith('stats')) {
-            msg.reply(`J'offre actuellement du bonheur à ${client.users.size} personnes a travers ${client.channels.size} channels de ${client.guilds.size} serveurs. Ouf hein ?! Merci !!`);
+            msg.reply(`J'offre actuellement du bonheur à ${client.users.size} personnes a travers ${client.channels.size} channels de ${client.guilds.size} serveurs. Ouf hein ?! Merci !!`,
+                {file: "http://i.imgur.com/hbDcYsZ.gif"});
         }
 
         if (command.startsWith('RISITAGS') && no_access(msg)) {
