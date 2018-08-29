@@ -17,6 +17,8 @@ var risibank_celestin = config.celestin;
 var bot_presence = config.bot_presence;
 var bot_presence_luck = config.bot_presence_luck
 
+var risicount = 0;
+
 client.on('ready', () => {
     console.log(`${client.user.tag} has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
     client.user.setActivity(`${prefix} - Propage la bonne parole sur ${client.guilds.size} serveurs`);
@@ -57,20 +59,21 @@ client.on('message', async msg => {
     if (config.debug && msg.author.id != config.root_user) {
         return;
     }
-    if (command = isCommand(msg.content)) {
+    let command = isCommand(msg.content);
+    if (command) {
         if (command.startsWith('ping')) {
             msg.reply('Pong!');
         }
 
         if (command.startsWith('risibank') || command.startsWith('risitas')) {
-
-            params = command.slice(prefixSize + 8);
+            risicount++;
+            let params = command.slice(prefixSize + 8);
             if (command.startsWith('risitas')) {
                 params = command.slice(prefixSize + 7);
             }
             removeCaller(msg, 'risibank');
 
-            var search = rb.searchStickers(params);
+            let search = rb.searchStickers(params);
             search.then(function (data) {
                 if (data[Object.keys(data)[0]] == undefined) {
                     msg.reply("J'ai pas trouvé de de sticker correspondant à " + params, {
@@ -96,13 +99,48 @@ client.on('message', async msg => {
         if(command.startsWith('invite')) {
             msg.reply(`tu peux ajouter Gilbot chez toi en cliquant sur http://bot.benftwc.fr/. P'tit pédé va, je te vois :smirk: :smirk:.`,
                 {file: "http://image.noelshack.com/fichiers/2017/14/1491754742-risigv.png"}
-        );
+            );
         }
 
         if (command.startsWith('help') || command.startsWith('aled')) {
-            msg.reply("Commandes accessibles : `credits`, `risibank <mot clés>`, `invite`, `stats`");
-            msg.channel.send("Commandes ADMIN (role `khey`) : `RISITAGS`, `LEGANGE`, `SETPREFIX`, `PRESENCE <on,off,rng<0-100>>`");
-            msg.channel.send("Le préfix actuellement est " + prefix);
+            const embed = {
+                "title": "**ALEEEED**",
+                "color": 16762368,
+                "footer": {
+                    "icon_url": "http://image.noelshack.com/fichiers/2017/27/2/1499119365-ptitpd.png",
+                    "text": "N'OUBLIE PAS, tu peux m'aider en allant voter"
+                },
+                "thumbnail": {
+                    "url": "http://image.noelshack.com/fichiers/2017/01/1483619930-risitasblc26zfz.png"
+                },
+                "fields": [
+                    {
+                        "name": "\u200b",
+                        "value": `Actuellement, le préfix est ${prefix}, faut le savoir hein.`
+                    },
+                    {
+                        "name": "risibank <mot clé>",
+                        "value": "Recherche dans la risibank et retourne un résultat parmis les <mot clés> indiqués !"
+                    },
+                    {
+                        "name": "stats",
+                        "value": "Indique les statistiques d'utilisation et d'installation de Gilbot"
+                    },
+                    {
+                        "name": "invite",
+                        "value": "Permet d'inviter Gilbot sur votre propre discord, la CHANCE !"
+                    },
+                    {
+                        "name": "credits",
+                        "value": "A ton avis du con :beers::beers::beers:"
+                    },
+                    {
+                        "name": "\u200b​",
+                        "value": "[**Voter**](https://discordbots.org/bot/484127854326710300/vote)                   [**Inviter**](https://discordapp.com/api/oauth2/authorize?client_id=484127854326710300&permissions=8&scope=bot)"
+                    }
+                ]
+            };
+            msg.channel.send({ embed });
         }
 
         if (command.startsWith("credits")) {
@@ -111,8 +149,10 @@ client.on('message', async msg => {
         }
 
         if (command.startsWith('stats')) {
+            msg.reply(`Depuis mon reboot, j'ai déjà envoyé ${risicount} stickers :joy:`);
             msg.reply(`J'offre actuellement du bonheur à ${client.users.size} personnes a travers ${client.channels.size} channels de ${client.guilds.size} serveurs. Ouf hein ?! Merci !!`,
-                {file: "http://i.imgur.com/hbDcYsZ.gif"});
+                    {file: "http://i.imgur.com/hbDcYsZ.gif"}
+                );
         }
 
         if (command.startsWith('RISITAGS') && no_access(msg)) {
