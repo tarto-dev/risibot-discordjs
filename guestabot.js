@@ -115,8 +115,8 @@ client.on('message', async msg => {
                 },
                 "fields": [
                     {
-                        "name": "\u200b",
-                        "value": `Actuellement, le préfix est ${prefix}, faut le savoir hein.`
+                        "name": `Actuellement, le préfix est ${prefix}, faut le savoir hein.`,
+                        "value": "\u200b"
                     },
                     {
                         "name": "risibank <mot clé>",
@@ -136,7 +136,7 @@ client.on('message', async msg => {
                     },
                     {
                         "name": "\u200b​",
-                        "value": "[**Voter**](https://discordbots.org/bot/484127854326710300/vote)                   [**Inviter**](https://discordapp.com/api/oauth2/authorize?client_id=484127854326710300&permissions=8&scope=bot)"
+                        "value": "[**Voter**](https://discordbots.org/bot/484127854326710300/vote)\u200b \u200b \u200b \u200b \u200b \u200b \u200b \u200b \u200b \u200b[**Inviter**](https://discordapp.com/api/oauth2/authorize?client_id=484127854326710300&permissions=8&scope=bot)"
                     }
                 ]
             };
