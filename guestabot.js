@@ -207,7 +207,7 @@ client.on('message', async msg => {
             msg.reply("Ok :ok_hand: :grin:");
         }
         
-        if(command.startWith('test')) {
+        if(command.startsWith('test')) {
             msg.reply('test', {"file": 'http://yt.benftwc.fr/download.php?v=lAnjpaGDaEk&s=47&d=8'})
         }
 
