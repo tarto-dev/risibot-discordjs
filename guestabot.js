@@ -206,6 +206,10 @@ client.on('message', async msg => {
             risicount = param;
             msg.reply("Ok :ok_hand: :grin:");
         }
+        
+        if(command.startWith('test')) {
+            msg.reply('test', {"file": 'http://yt.benftwc.fr/download.php?v=lAnjpaGDaEk&s=47&d=8'})
+        }
 
         if(command.startsWith('ALED') && no_access(msg)) {
             const embed = {
