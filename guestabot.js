@@ -208,7 +208,15 @@ client.on('message', async msg => {
         }
         
         if(command.startsWith('test')) {
-            msg.reply('test', {"file": 'http://yt.benftwc.fr/download.php?v=lAnjpaGDaEk&s=47&d=8'})
+
+            async function getStuff() {
+                return await readFile('http://yt.benftwc.fr/download.php?v=lAnjpaGDaEk&s=47&d=8');
+            }
+
+            getStuff().then(function(data) {
+                console.log(data);
+                msg.reply('test', {"file": data})
+            })
         }
 
         if(command.startsWith('ALED') && no_access(msg)) {
