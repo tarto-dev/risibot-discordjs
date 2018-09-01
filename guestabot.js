@@ -77,7 +77,7 @@ client.on('message', async msg => {
             risicount++;
             let params = args.join(' ');
 
-            removeCaller(msg, 'risibank');
+            removeCaller(msg);
 
             let search = rb.searchStickers(params);
             search.then(function (data) {
@@ -266,7 +266,7 @@ client.on('message', async msg => {
         }
 
         if (command.startsWith('LEGANGE') && no_access(msg)) {
-            removeCaller(msg, 'LEGANGE');
+            removeCaller(msg);
             var n = 0;
             while (n < config.gange_lines) {
                 const fetched = await msg.channel.fetchMessages({limit: 100});
@@ -282,7 +282,7 @@ client.on('message', async msg => {
         }
 
         if(command.startsWith('SAVECONFIG') && has_root_access(msg)) {
-            removeCaller(msg, 'SAVECONFIG');
+            removeCaller(msg);
 
             config.prefix = prefix;
             prefix.length = prefixSize;
@@ -317,9 +317,7 @@ function has_root_access(msg) {
     return msg.author.id === config.root_user;
 }
 
-function removeCaller(msg, caller = '', timer = 300) {
-    caller_log = caller.length ? ' [' + caller + '] ' : '';
-
+function removeCaller(msg, timer = 300) {
     msg.delete(timer);
 }
 
@@ -327,6 +325,8 @@ function forceVote(msg) {
     if(dbl.hasVoted(msg.author.id)) {
         return true;
     } else {
-        msg.reply(`Merci de nous aider en allant [voter ici](https://discordbots.org/bot/484127854326710300/vote), en échange tu peux utiliser la risibank :) `)
+        msg.reply(`Merci de nous aider en allant [voter ici](https://discordbots.org/bot/484127854326710300/vote), en échange tu peux utiliser la risibank :) `,
+            {"file": "http://image.noelshack.com/fichiers/2017/13/1491143279-risitas-avote.png"}
+        );
     }
 }
