@@ -68,8 +68,16 @@ client.on('message', async msg => {
             msg.reply('Pong!');
         }
 
-        if (command.startsWith('risibank') || command.startsWith('risitas')) {
+        if (command.startsWith('support')) {
+            msg.reply(`Toute demande d'aide ou problème passe par un ticket sur le site https://gitlab.com/benftwc/guestabot/issues. Merci ;)`,
+                {"file": "http://image.noelshack.com/fichiers/2017/20/1495203347-jbtp.png"});
+        }
 
+        if(command.startsWith('vote')) {
+            msg.reply(`Merci de participer mon Kheyou, tu peux voter là https://discordbots.org/bot/484127854326710300/vote !`)
+        }
+
+        if (command.startsWith('risibank') || command.startsWith('risitas')) {
             dbl.hasVoted(msg.author.id).then(data => {
                 if(data === false) {
                     msg.reply(`Merci de nous aider en allant voter mon khey (https://discordbots.org/bot/484127854326710300/vote), en échange tu peux utiliser la risibank :) `,
@@ -133,7 +141,7 @@ client.on('message', async msg => {
                         "value": "\u200b"
                     },
                     {
-                        "name": "risibank <mot clé>",
+                        "name": "risibank <mot clé> (requiert de voter)",
                         "value": "Recherche dans la risibank et retourne un résultat parmis les <mot clés> indiqués !"
                     },
                     {
@@ -143,6 +151,14 @@ client.on('message', async msg => {
                     {
                         "name": "invite",
                         "value": "Permet d'inviter Gilbot sur votre propre discord, la CHANCE !"
+                    },
+                    {
+                        "name": "vote",
+                        "value": "Permet d'obtenir l'adresse de vote pour le bot :muscle: !"
+                    },
+                    {
+                        "name": "support",
+                        "value": "Si tu as un besoin d'aide, viens faire un tour :smile:"
                     },
                     {
                         "name": "credits",
