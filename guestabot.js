@@ -1,14 +1,17 @@
+// LOAD LIBS
 const Discord = require('discord.js');
-const client = new Discord.Client();
-
 const Risibank = require('risibank');
-var rb = new Risibank.RisiBank();
-
 const jsdom = require("jsdom");
-const {JSDOM} = jsdom;
 
+// LOAD SETTINGS
 const config = require("./config.json");
 
+
+var rb = new Risibank.RisiBank();
+const client = new Discord.Client();
+const {JSDOM} = jsdom;
+
+// DEFAULT SETTINGS
 var prefix = config.prefix;
 var prefixSize = prefix.length;
 var admin_role_name = config.admin_role_name
@@ -206,18 +209,6 @@ client.on('message', async msg => {
             risicount = param;
             msg.reply("Ok :ok_hand: :grin:");
         }
-        
-        if(command.startsWith('test')) {
-
-            async function getStuff() {
-                return await readFile('http://yt.benftwc.fr/download.php?v=lAnjpaGDaEk&s=47&d=8');
-            }
-
-            getStuff().then(function(data) {
-                console.log(data);
-                msg.reply('test', {"file": data})
-            })
-        }
 
         if(command.startsWith('ALED') && no_access(msg)) {
             const embed = {
@@ -311,21 +302,6 @@ function isCommand(msg) {
     return false;
 }
 
-function getRisibankRelated(search) {
-    if (search === 'random' || search === 'rng') {
-        rng = getRandomInt(201, 297);
-
-        return 'https://risibank.fr/cache/stickers/d2/' + rng + '-static.png';
-    }
-    (async (url) => {
-        code = await getScript(url);
-        dom = new JSDOM(code);
-        imageUrl = dom.window.document.querySelector(".risicard:first-child img").dataset.src;
-        //console.log("Triggered img : " + imageUrl);
-        return imageUrl;
-    })('https://risibank.fr/#' + search.replace(' ', '+'));
-}
-
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -337,36 +313,6 @@ function no_access(msg) {
     }
     return true;
 }
-
-const getScript = (url) => {
-    return new Promise((resolve, reject) => {
-        const http = require('http'),
-            https = require('https');
-
-        let client = http;
-
-        if (url.toString().indexOf("https") === 0) {
-            client = https;
-        }
-
-        client.get(url, (resp) => {
-            let data = '';
-
-            // A chunk of data has been recieved.
-            resp.on('data', (chunk) => {
-                data += chunk;
-            });
-
-            // The whole response has been received. Print out the result.
-            resp.on('end', () => {
-                resolve(data);
-            });
-
-        }).on("error", (err) => {
-            reject(err);
-        });
-    });
-};
 
 function removeCaller(msg, caller = '') {
     caller_log = caller.length ? ' [' + caller + '] ' : '';
