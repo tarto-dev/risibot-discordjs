@@ -87,6 +87,15 @@ client.on('message', async msg => {
             msg.reply(`Merci de participer mon Kheyou, tu peux voter là https://discordbots.org/bot/484127854326710300/vote !`)
         }
 
+        if (command.startsWith('don')) {
+            let amount = '';
+            if(args[0] != undefined && +args[0] > 0) {
+                amount = args[0];
+            }
+
+            msg.author.sendMessage(`Je te remercie de participer aux frais de Gilbot. Tu peux passer par mon paypal si tu veux > http://paypal.me/benftwc/${amount}`)
+        }
+
         if (command.startsWith('risibank') || command.startsWith('risitas')) {
             if (config.vote) {
                 dbl.hasVoted(msg.author.id).then(data => {
@@ -177,6 +186,10 @@ client.on('message', async msg => {
                     {
                         "name": "support",
                         "value": "Si tu as un besoin d'aide, viens faire un tour :smile:"
+                    },
+                    {
+                        "name": "don",
+                        "value": "Si tu as trop d'argent avec ton RSA et que tu souhaites contribuer aux frais du bot :smile:"
                     },
                     {
                         "name": "credits",
