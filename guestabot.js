@@ -88,6 +88,7 @@ client.on('message', async msg => {
         }
 
         if (command.startsWith('don')) {
+            removeCaller(msg, 1);
             let amount = '';
             if(args[0] != undefined && +args[0] > 0) {
                 amount = args[0];
