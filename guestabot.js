@@ -147,9 +147,8 @@ client.on('message', async msg => {
         }
 
         if (command.startsWith('invite')) {
-            msg.author.sendMessage(`tu peux ajouter Gilbot chez toi en cliquant sur https://discordapp.com/api/oauth2/authorize?client_id=484127854326710300&permissions=8&scope=bot :smirk:.`,
-                {file: "http://image.noelshack.com/fichiers/2017/14/1491754742-risigv.png"}
-            );
+            removeCaller(msg);
+            msg.author.sendMessage(`tu peux ajouter Gilbot chez toi en cliquant sur https://discordapp.com/api/oauth2/authorize?client_id=484127854326710300&permissions=8&scope=bot :smirk:.`);
         }
 
         if (command.startsWith('help') || command.startsWith('aled')) {
