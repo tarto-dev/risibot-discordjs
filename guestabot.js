@@ -147,7 +147,7 @@ client.on('message', async msg => {
         }
 
         if (command.startsWith('invite')) {
-            msg.reply(`tu peux ajouter Gilbot chez toi en cliquant sur http://bot.benftwc.fr/. P'tit pédé va, je te vois :smirk: :smirk:.`,
+            msg.author.sendMessage(`tu peux ajouter Gilbot chez toi en cliquant sur https://discordapp.com/api/oauth2/authorize?client_id=484127854326710300&permissions=8&scope=bot :smirk:.`,
                 {file: "http://image.noelshack.com/fichiers/2017/14/1491754742-risigv.png"}
             );
         }
@@ -310,8 +310,12 @@ client.on('message', async msg => {
                         "value": "Permet de gérer les réponses automatiques du bot. PRESENCE prend 3 paramètres :"
                     },
                     {
-                        "name": "__:thinking: SETSTATS__",
-                        "value": "Permet d'initialiser le compteur de risibank"
+                        "name": "__:thinking: VOTE__",
+                        "value": "Active ou désactive le vote obligatoire pour les risibank"
+                    },
+                    {
+                        "name": "__:smirk: SAVECONFIG__",
+                        "value": "Enregistre les configs/stats du bot en prévision d'un reboot"
                     },
                     {
                         "name": "on/off",
