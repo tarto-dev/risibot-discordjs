@@ -216,7 +216,7 @@ client.on('message', async msg => {
             );
         }
 
-        if (command.startsWith('RISITAGS') && no_access(msg)) {
+        if (command.startsWith('RISITAGS') && has_admin_access(msg)) {
             if (risibank_show_tags) {
                 risibank_show_tags = false;
                 msg.channel.send("Ok, j'arrête de t'afficher avec les tags chelous sur la risibank :ok_hand: :grin:");
@@ -226,12 +226,12 @@ client.on('message', async msg => {
             }
         }
 
-        if (command.startsWith('WELCOMECHAN') && no_access(msg)) {
+        if (command.startsWith('WELCOMECHAN') && has_admin_access(msg)) {
             config.welcome_chan = args[0];
             msg.channel.send(`Nouveau channel d'accueil : ${config.welcome_chan}`);
         }
 
-        if (command.startsWith('VOTE') && no_access(msg)) {
+        if (command.startsWith('VOTE') && has_admin_access(msg)) {
             let mode = '';
             if (config.vote) {
                 config.vote = false;
@@ -243,7 +243,7 @@ client.on('message', async msg => {
             msg.channel.send(`Les votes sont a présent : ${mode}`);
         }
 
-        if (command.startsWith('PRESENCE') && no_access(msg)) {
+        if (command.startsWith('PRESENCE') && has_admin_access(msg)) {
             if (args.length < 1) {
                 msg.reply(`La présence du bot est réglée sur ${bot_presence} <${bot_presence_luck}>`);
                 return;
@@ -266,7 +266,7 @@ client.on('message', async msg => {
             }
         }
 
-        if (command.startsWith('CELESTIN') && no_access(msg)) {
+        if (command.startsWith('CELESTIN') && has_admin_access(msg)) {
             if (risibank_celestin) {
                 risibank_celestin = false;
                 msg.channel.send("Ok, j'arrête d'afficher les Celestins :ok_hand: :grin:");
@@ -276,7 +276,7 @@ client.on('message', async msg => {
             }
         }
 
-        if (command.startsWith('ALED') && no_access(msg)) {
+        if (command.startsWith('ALED') && has_admin_access(msg)) {
             const embed = {
                 "title": "**ALEEEED ADMIN VERSOIN**",
                 "color": 16711680,
@@ -331,20 +331,20 @@ client.on('message', async msg => {
             msg.channel.send({embed});
         }
 
-        if (command.startsWith('STATS') && no_access(msg)) {
+        if (command.startsWith('STATS') && has_admin_access(msg)) {
             if(args[0] != undefined) {
                 let guild = client.guilds.find("name", args[0]);
 
             }
         }
 
-        if (command.startsWith('SETPREFIX') && no_access(msg)) {
+        if (command.startsWith('SETPREFIX') && has_admin_access(msg)) {
             prefix = args[0];
             prefixSize = prefix.length;
             msg.reply('Le nouveau préfixe est ' + prefix);
         }
 
-        if (command.startsWith('LEGANGE') && no_access(msg)) {
+        if (command.startsWith('LEGANGE') && has_admin_access(msg)) {
             removeCaller(msg);
             var n = 0;
             while (n < config.gange_lines) {
@@ -384,12 +384,8 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function no_access(msg) {
-    if (!msg.member.roles.some(r => [admin_role_name].includes(r.name))) {
-        msg.reply(":410: commande suicidée ! - Recommence et je te pète les jambes petit fdp.");
-        return false;
-    }
-    return true;
+function has_admin_access(msg) {
+    return msg.channel.permissionsFor(msg.member).has("ADMINISTRATOR", false);
 }
 
 function has_root_access(msg) {
