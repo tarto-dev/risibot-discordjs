@@ -1,3 +1,4 @@
+
 // LOAD LIBS
 const Discord = require('discord.js');
 const Risibank = require('risibank');
