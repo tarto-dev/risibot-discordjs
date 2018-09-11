@@ -1,4 +1,3 @@
-
 // LOAD LIBS
 const Discord = require('discord.js');
 const Risibank = require('risibank');
@@ -38,6 +37,11 @@ client.on("guildDelete", guild => {
     client.user.setActivity(`${prefix} - Propage la bonne parole sur ${client.guilds.size} serveurs`);
 });
 
+client.on('guildMemberAdd', member => {
+  const role = member.guild.channels.roles.find("name", "Membre");
+  member.addRole(role).catch(console.error);
+});
+
 client.on('message', async msg => {
     // Prevent "botception".
     if (msg.author.bot) return;
@@ -60,7 +64,7 @@ client.on('message', async msg => {
         removeCaller(msg, 100);
         let call = msg.content.toLowerCase();
         if (call.startsWith("ok") || call.startsWith("accept")) {
-            console.log(msg.author.name + " accepted");
+            console.log(msg.member.name + " accepted");
             msg.member.addRole(msg.guild.roles.find("name", "Membre")).catch(console.error);
             msg.member.removeRole(msg.guild.roles.find("name", "nouveau")).catch(console.error);
         }
