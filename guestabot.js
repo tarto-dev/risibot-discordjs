@@ -38,7 +38,7 @@ client.on("guildDelete", guild => {
 });
 
 client.on('guildMemberAdd', member => {
-  const role = member.guild.channels.roles.find("name", "Membre");
+  const role = member.guild.channels.roles.find("name", "nouveau");
   member.addRole(role).catch(console.error);
 });
 
