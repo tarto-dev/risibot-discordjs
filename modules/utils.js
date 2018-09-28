@@ -8,3 +8,7 @@ module.exports.has_perm = (message, permission, warn = false) => {
 module.exports.getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+module.exports.removeCaller = (message) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
