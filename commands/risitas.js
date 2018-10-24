@@ -19,6 +19,10 @@ exports.run = (client, message, args) => {
     client.config.risicount++;
     let params = args.join(' ');
 
+    
+    // Dans le doute, retire "<" et ">" afin d'éviter à Jean Kévin de ne pas obtenir de résultat et de pleurer CÉ PÉTÉ
+    params = params.replace('<', '').replace('>', '');
+    
     message.delete();
 
     let search = rb.searchStickers(params);
