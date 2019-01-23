@@ -1,5 +1,5 @@
 exports.run = async (client, message) => {
-    //message.delete();
+    message.delete();
 
     //if(!client.utils.has_perm(message, 'ADMINISTRATOR', true))
     //    return;
@@ -28,12 +28,5 @@ exports.run = async (client, message) => {
     });
 
     guildsTable += "+--------------------+--------------------------------+--------+--------+----------+\n";
-        // while (n < client.config.gange_lines) {
-    //     const fetched = await message.channel.fetchMessages({limit: 100});
-    //     message.channel.bulkDelete(fetched)
-    //         .catch(error => message.reply(`Couldn't delete messages because of: ${error}`));
-    //
-    //     n++;
-    // }
-     message.channel.send("```\n" + guildsTable + "```", {});
+    message.channel.send("```\n" + guildsTable + "```", {});
 }
