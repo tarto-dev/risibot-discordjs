@@ -28,5 +28,6 @@ exports.run = async (client, message) => {
     });
 
     guildsTable += "+--------------------+--------------------------------+--------+--------+----------+\n";
-    message.channel.send("```\n" + guildsTable + "```", {});
+    console.log(guildsTable);
+    //message.channel.send("```\n" + guildsTable + "```", {});
 }
