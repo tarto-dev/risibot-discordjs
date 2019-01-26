@@ -2,20 +2,6 @@ exports.run = (client, message, args) => {
     const Risibank = require('risibank');
     const rb = new Risibank.RisiBank();
 
-    if (client.guildConf.vote) {
-        const DBL = require("dblapi.js");
-        const dbl = new DBL(client.config.dblapi_apikey, client);
-
-        dbl.hasVoted(message.author.id).then(data => {
-            if (data === false) {
-                message.author.sendMessage(`Merci de nous aider en allant voter mon khey (https://discordbots.org/bot/484127854326710300/vote), en échange tu peux utiliser la risibank :) `,
-                    {"file": "http://image.noelshack.com/fichiers/2017/13/1491143279-risitas-avote.png"}
-                );
-                return;
-            }
-        })
-    }
-
     const fs = require("fs")
     client.risicount.count++;
     fs.writeFile("./risicount.json", JSON.stringify(client.risicount), (err) => console.error);
@@ -31,7 +17,7 @@ exports.run = (client, message, args) => {
         }
         if (data[Object.keys(data)[0]] == undefined) {
             message.reply("J'ai pas trouvé de de sticker correspondant à " + params, {
-                file: 'http://image.noelshack.com/fichiers/2017/20/1495053127-paslebol.png'
+                file: client.guildConf.sticker404
             });
         } else {
             if (!client.guildConf.show_risitags) {

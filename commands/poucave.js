@@ -1,6 +1,4 @@
 exports.run = (client, message, args) => {
-    const Risibank = require('risibank');
-    const rb = new Risibank.RisiBank();
 
     if (!client.guildConf.disable_vote) {
         const DBL = require("dblapi.js");
@@ -16,18 +14,10 @@ exports.run = (client, message, args) => {
         })
     }
 
-    const fs = require("fs")
-    client.risicount.count++;
-    fs.writeFile("./risicount.json", JSON.stringify(client.risicount), (err) => console.error);
+    client.risistory.ensure(`${message.guild.id}`, {tags: []});
 
-    message.delete();
+    let tags = client.risistory.fetch(message.guild.id);
+    let last10 = tags.tags.reverse().slice(0, client.guildConf.history);
 
-    let search = rb.searchStickers("waifu");
-    search.then(function (data) {
-        if (data[Object.keys(data)[0]] != undefined) {
-            message.channel.send('', {
-                file: data[client.utils.getRandomInt(0, data.length)].risibank_link
-            });
-        }
-    })
+    return message.channel.send(`Liste des ${client.guildConf.history} derniers tags utilisés : \`\`\`${last10.join("\n")}\`\`\``);
 }

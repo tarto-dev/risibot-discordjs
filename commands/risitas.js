@@ -2,20 +2,6 @@ exports.run = (client, message, args) => {
     const Risibank = require('risibank');
     const rb = new Risibank.RisiBank();
 
-    if (client.guildConf.vote) {
-        const DBL = require("dblapi.js");
-        const dbl = new DBL(client.config.dblapi_apikey, client);
-
-        dbl.hasVoted(message.author.id).then(data => {
-            if (data === false) {
-                message.author.sendMessage(`Merci de nous aider en allant voter mon khey (https://discordbots.org/bot/484127854326710300/vote), en échange tu peux utiliser la risibank :) `,
-                    {"file": "http://image.noelshack.com/fichiers/2017/13/1491143279-risitas-avote.png"}
-                );
-                return;
-            }
-        })
-    }
-
     let params = args.join(' ');
 
     const fs = require("fs")
@@ -36,16 +22,16 @@ exports.run = (client, message, args) => {
             search.then(function (data) {
                 let index = client.utils.getRandomInt(0, data.length);
                 if (data[Object.keys(data)[index]] == undefined) {
-                    if(params.length > 1) {
-                        params = params[0];
-                    }
                     let search = rb.searchStickers(params);
                     search.then(function (data) {
                         let index = client.utils.getRandomInt(0, data.length);
                         if (data[Object.keys(data)[index]] == undefined) {
-                            let search = rb.searchStickers("issou");
+                            let search = rb.searchStickers(args[0]);
                             search.then(function (data) {
                                 if (data[Object.keys(data)[0]] == undefined) {
+                                    message.channel.send('',
+                                        {file: client.guildConf.sticker404}
+                                    );
                                     return;
                                 } else {
                                     message.channel.send('', {

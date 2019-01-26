@@ -18,12 +18,19 @@ client.settings = new Enmap({
 const defaultSettings = {
     prefix: "+",
     show_risitags: false,
-    vote: false,
+    disable_vote: false,
     modLogChannel: "mod-log",
     modRole: "Moderator",
-    adminRole: "Administrator"
+    adminRole: "Administrator",
+    score: true,
+    sticker404: "http://image.noelshack.com/fichiers/2018/01/5/1515108350-410.png"
 };
 
+client.risistory = new Enmap({name: "risistory",
+    fetchAll: false,
+    autoFetch: true,
+    cloneLevel: 'deep'});
+client.points = new Enmap({name: "points"});
 client.defaultSettings = defaultSettings;
 
 const risicount = require('./risicount.json');
