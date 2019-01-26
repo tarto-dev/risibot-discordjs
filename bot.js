@@ -7,6 +7,25 @@ const config = require("./config.json");
 // We also need to make sure we're attaching the config to the CLIENT so it's accessible everywhere!
 client.config = config;
 
+// Enmap config
+client.settings = new Enmap({
+    name: "settings",
+    fetchAll: false,
+    autoFetch: true,
+    cloneLevel: 'deep'
+});
+
+const defaultSettings = {
+    prefix: "+",
+    show_risitags: false,
+    vote: false,
+    modLogChannel: "mod-log",
+    modRole: "Moderator",
+    adminRole: "Administrator"
+};
+
+client.defaultSettings = defaultSettings;
+
 const risicount = require('./risicount.json');
 client.risicount = risicount;
 
@@ -32,6 +51,7 @@ fs.readdir("./commands/", (err, files) => {
         let commandName = file.split(".")[0];
         console.log(`Attempting to load command ${commandName}`);
         client.commands.set(commandName, props);
+    )
     });
 });
 

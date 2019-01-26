@@ -19,6 +19,9 @@ module.exports = (client, guild) => {
         ]
     };
 
+    // When the bot leaves or is kicked, delete settings to prevent stale entries.
+    client.settings.delete(guild.id);
+
     client.users.get(client.config.root_user).send({embed});
     client.channels.get(client.config.log_discord_channel).send({embed});
 }
