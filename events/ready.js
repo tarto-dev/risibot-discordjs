@@ -1,5 +1,5 @@
 module.exports = (client) => {
-    client.user.setActivity(`http://bot.benftwc.fr - ${client.guilds.size} serveurs | ${client.channels.size} channels | ${client.members.size} kheys`);
+    client.user.setActivity(`http://bot.benftwc.fr - ${client.guilds.size} serveurs | ${client.channels.size} channels | 20988 kheys`);
 
     const embed = {
         "title": "BOT READY",
