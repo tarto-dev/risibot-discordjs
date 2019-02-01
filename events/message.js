@@ -10,21 +10,21 @@ module.exports = (client, message) => {
     ///////////////////////////////////////////////////
     //////////////////      INIT        ///////////////
     ///////////////////////////////////////////////////
-    if(!client.guildConf.hasOwnProperty('score')) {
+    if(!client.guildConf.hasOwnProperty('score') || client.guildConf.score === undefined) {
         client.guildConf.score = true;
     }
 
-    if(!client.guildConf.hasOwnProperty('nsfwOnly')) {
+    if(!client.guildConf.hasOwnProperty('nsfwOnly') || client.guildConf.nsfwOnly === undefined) {
         client.guildConf.nsfwOnly = "off";
     }
     
-    if(!client.guildConf.hasOwnProperty('history')) {
+    if(!client.guildConf.hasOwnProperty('history') || client.guildConf.history === undefined) {
         client.guildConf.history = 4;
     }
-    if(!client.guildConf.hasOwnProperty('sticker404')) {
+    if(!client.guildConf.hasOwnProperty('sticker404') || client.guildConf.sticker404 === undefined) {
         client.guildConf.sticker404 = "http://image.noelshack.com/fichiers/2018/01/5/1515108350-410.png";
     }
-    if(!client.guildConf.hasOwnProperty('disable_vote')) {
+    if(!client.guildConf.hasOwnProperty('disable_vote') || client.guildConf.disable_vote === undefined) {
         client.guildConf.disable_vote = false;
     }
 
