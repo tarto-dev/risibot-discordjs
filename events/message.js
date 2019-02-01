@@ -15,7 +15,7 @@ module.exports = (client, message) => {
     }
 
     if(!client.guildConf.hasOwnProperty('nsfwOnly')) {
-        client.guildConf.nsfwOnly = true;
+        client.guildConf.nsfwOnly = "on";
     }
     
     if(!client.guildConf.hasOwnProperty('history')) {
