@@ -18,6 +18,7 @@ exports.run = async (client, message, args) => {
         filtered.forEach(data => {
             client.points.set(`${message.guild.id}-${data.user}`,0, "points");
             client.points.set(`${message.guild.id}-${data.user}`,1, "level");
+            client.points.set(`${message.guild.id}-${data.user}`,0, "xp");
         });
 
         message.channel.send(`Les points de ${filtered.size} comptes sont a présent retirés.`);
@@ -25,7 +26,7 @@ exports.run = async (client, message, args) => {
         toRemove.forEach(data => {
             client.points.set(`${message.guild.id}-${data.user}`,0, "points");
             client.points.set(`${message.guild.id}-${data.user}`,1, "level");
-
+            client.points.set(`${message.guild.id}-${data.user}`,0, "xp");
         });
 
         message.channel.send(`Les points de ${toRemove.size} comptes inactifs sont a présent retirés.`);

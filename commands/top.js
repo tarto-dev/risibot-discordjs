@@ -10,7 +10,7 @@ exports.run = (client, message, args) => {
     const top10 = sorted.splice(0, 10);
 
     let embedFields = top10.map(data => {
-        return {"name": client.users.get(data.user).tag, "value": `${data.points} points (niveau ${data.level})`};
+        return {"name": client.users.get(data.user).tag, "value": `${data.points} points || LVL: ${data.level} | XP: ${data.xp} || `};
     });
 
     const embed = {
