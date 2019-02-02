@@ -96,7 +96,7 @@ module.exports = (client, message) => {
         let newScoring = computeScore(client.points.get(`${key}`, 'xp') || 1);
 
         // Calculate the user's current level
-        const curLevel = newScoring.level;
+        const curLevel = newScoring.level; 
 
         // Act upon level up by sending a message and updating the user's level in enmap.
         if (curLevel > client.points.get(`${key}`, "level")) {
