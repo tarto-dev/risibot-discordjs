@@ -19,8 +19,5 @@ exports.run = (client, message, args) => {
         "fields": embedFields
     };
 
-    console.log(embedFields);
-
-
     return message.channel.send({embed});
 }
