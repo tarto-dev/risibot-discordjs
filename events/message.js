@@ -93,7 +93,7 @@ module.exports = (client, message) => {
             client.points.set(`${key}`, 0, 'level')
         }
 
-        let newScoring = computeScore(client.points.get(`${key}`, 'xp'));
+        let newScoring = computeScore(client.points.get(`${key}`, 'xp') || 1);
 
         // Calculate the user's current level
         const curLevel = newScoring.level;
