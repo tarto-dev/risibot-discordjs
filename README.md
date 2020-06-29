@@ -1,5 +1,7 @@
 # Risibot
 
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/benftwc/risibot-discordjs.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/benftwc/risibot-discordjs/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/benftwc/risibot-discordjs.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/benftwc/risibot-discordjs/context:javascript)
+
 ## Public commands
 ```
 +aled/+help : display some helps
