@@ -3,7 +3,7 @@ module.exports = (client, guild) => {
 
     const io = require('@pm2/io')
 
-    const commandUsages = io.meter({
+    const commandUsages = io.counter({
         name: 'Guilds count',
         id: 'app/guilds/count'
     })

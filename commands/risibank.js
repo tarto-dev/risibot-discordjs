@@ -11,7 +11,7 @@ exports.run = (client, message, args) => {
     message.delete();
     const io = require('@pm2/io')
 
-    const commandUsages = io.meter({
+    const commandUsages = io.counter({
         name: 'risibank',
         id: 'app/commands/risibank'
     })

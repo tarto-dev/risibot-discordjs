@@ -2,7 +2,7 @@ exports.run = (client, message) => {
 
     const io = require('@pm2/io')
 
-    const commandUsages = io.meter({
+    const commandUsages = io.counter({
         name: 'stats',
         id: 'app/commands/stats'
     })
