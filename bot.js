@@ -2,6 +2,16 @@ const Discord = require("discord.js");
 const Enmap = require("enmap");
 const fs = require("fs");
 
+import * as Sentry from "@sentry/node";
+import * as Tracing from "@sentry/tracing";
+
+Sentry.init({
+    dsn: "https://64e48c5959c74d13b1abf2d43baffb4b@o472921.ingest.sentry.io/5507216" });
+    // We recommend adjusting this value in production, or using tracesSampler
+    // for finer control
+    tracesSampleRate: 1.0,
+});
+
 const client = new Discord.Client();
 const config = require("./config.json");
 // We also need to make sure we're attaching the config to the CLIENT so it's accessible everywhere!
