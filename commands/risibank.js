@@ -9,8 +9,14 @@ exports.run = (client, message, args) => {
     let params = args.join(' ');
 
     message.delete();
+    const io = require('@pm2/io')
 
-    if(!message.channel.nsfw && client.guildConf.nsfwOnly === "on") {
+    const commandUsages = io.meter({
+        name: 'risibank',
+        id: 'app/commands/risibank'
+    })
+    commandUsages.inc()
+    if (!message.channel.nsfw && client.guildConf.nsfwOnly === "on") {
         message.author.send(`Le salon \`#${message.channel.name}\` du serveur \`${message.guild.name}\` bloque les stickers dans les salons "non NSFW"`);
         return;
     }

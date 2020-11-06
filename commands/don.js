@@ -1,8 +1,16 @@
 exports.run = (client, message, args) => {
     message.delete();
 
+    const io = require('@pm2/io')
+
+    const commandUsages = io.meter({
+        name: 'don',
+        id: 'app/commands/don'
+    })
+    commandUsages.inc()
+
     let amount = '';
-    if(args[0] != undefined && +args[0] > 0) {
+    if (args[0] != undefined && +args[0] > 0) {
         amount = args[0];
     }
 

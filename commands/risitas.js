@@ -10,7 +10,15 @@ exports.run = (client, message, args) => {
 
     message.delete();
 
-    if(!message.channel.nsfw && client.guildConf.nsfwOnly === "on") {
+    const io = require('@pm2/io')
+
+    const commandUsages = io.meter({
+        name: 'risitas',
+        id: 'app/commands/risitas'
+    })
+    commandUsages.inc()
+
+    if (!message.channel.nsfw && client.guildConf.nsfwOnly === "on") {
         message.author.send(`Le salon \`#${message.channel.name}\` du serveur \`${message.guild.name}\` bloque les stickers dans les salons "non NSFW"`);
         return;
     }
@@ -35,7 +43,7 @@ exports.run = (client, message, args) => {
                             search.then(function (data) {
                                 if (data[Object.keys(data)[0]] == undefined) {
                                     message.channel.send('',
-                                        {file: client.guildConf.sticker404}
+                                        { file: client.guildConf.sticker404 }
                                     );
                                     return;
                                 } else {

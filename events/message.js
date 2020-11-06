@@ -1,18 +1,18 @@
 module.exports = (client, message) => {
 
-    const io = require('@pm2/io')
-
-    const commandUsages = io.meter({
-        name: 'uses',
-        id: 'app/commands/usages'
-    })
 
     // Ignore all bots
     if (message.author.bot) return;
 
     if (!message.guild) return;
 
-    commandUsages.mark()
+    const io = require('@pm2/io')
+
+    const commandUsages = io.meter({
+        name: 'commands used',
+        id: 'app/commands/usages'
+    })
+    commandUsages.inc()
 
     const computeScore = (score) => {
         let levels = [], num = 1;

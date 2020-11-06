@@ -1,5 +1,14 @@
 exports.run = (client, message, args) => {
     message.delete();
+
+    const io = require('@pm2/io')
+
+    const commandUsages = io.meter({
+        name: 'aled',
+        id: 'app/commands/aled'
+    })
+    commandUsages.inc()
+
     const embed = {
         "title": "**ALEEEED**",
         "color": 16762368,
@@ -78,7 +87,7 @@ exports.run = (client, message, args) => {
         ]
     };
 
-    message.channel.send({embed});
+    message.channel.send({ embed });
 }
 
 exports.help = {
