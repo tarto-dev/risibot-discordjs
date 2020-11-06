@@ -1,19 +1,29 @@
 module.exports = (client, message) => {
+
+    const io = require('@pm2/io')
+
+    const commandUsages = io.meter({
+        name: 'uses',
+        id: 'app/commands/usages'
+    })
+
     // Ignore all bots
     if (message.author.bot) return;
 
     if (!message.guild) return;
 
+    commandUsages.mark()
+
     const computeScore = (score) => {
         let levels = [], num = 1;
-        levels[0] = {"level": 0, "xp": 0, "diff": 0};
+        levels[0] = { "level": 0, "xp": 0, "diff": 0 };
         while (num < 200) {
 
             let xp = Math.round(5 * ((num ** 3) / 2) + 50 * num + 100);
-            let diff = xp - (levels[num-1].xp);
+            let diff = xp - (levels[num - 1].xp);
 
             let calcul = {
-                "level" : num,
+                "level": num,
                 "xp": xp,
                 "diff": diff
             };
@@ -21,16 +31,16 @@ module.exports = (client, message) => {
             levels.push(calcul);
             num++;
 
-            if(score < xp) {
+            if (score < xp) {
                 break;
             }
 
         }
 
-        const xpRange = {"min": 10, "max": 150};
+        const xpRange = { "min": 10, "max": 150 };
         let currentXp = score + (Math.floor(Math.random() * (xpRange.max - xpRange.min + 1)) + xpRange.min);
 
-        let scoring = {xp: currentXp, level: levels[levels.length-1].level};
+        let scoring = { xp: currentXp, level: levels[levels.length - 1].level };
         return scoring;
     }
 
@@ -89,11 +99,11 @@ module.exports = (client, message) => {
         });
         client.points.inc(key, "points");
 
-        if(client.points.get(`${key}`, 'xp') === undefined) {
+        if (client.points.get(`${key}`, 'xp') === undefined) {
             client.points.set(`${key}`, 0, 'xp')
         }
 
-        if(client.points.get(`${key}`, 'level') === undefined) {
+        if (client.points.get(`${key}`, 'level') === undefined) {
             client.points.set(`${key}`, 0, 'level')
         }
 
@@ -111,7 +121,7 @@ module.exports = (client, message) => {
         client.points.set(`${key}`, newScoring.xp, 'xp');
         client.points.set(`${key}`, newScoring.level, 'level');
 
-        client.risistory.ensure(message.guild.id, {tags: []});
+        client.risistory.ensure(message.guild.id, { tags: [] });
         client.risistory.push(message.guild.id, args.join(' '), 'tags', true);
     }
 
