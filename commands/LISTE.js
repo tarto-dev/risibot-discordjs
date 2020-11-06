@@ -25,7 +25,7 @@ exports.run = async (client, message) => {
     guilds.map(guild => {
         const curGuildCfg = client.settings.ensure(guild.id, client.defaultSettings);
         guildsTable +=
-            "| " + guild.id + " | " + cleanData(guild.name, 30) + " | " + cleanData(guild.channels.size, 6) + " | " + cleanData(guild.roles.size, 6) + " | " + cleanData(guild.members.filter(member => !member.user.bot).size, 8) + " | " + cleanData(curGuildCfg.score, 5) + " | " + cleanData(curGuildCfg.disable_vote, 4) + " | " + cleanData(curGuildCfg.nsfwOnly, 4) + " |\n";
+            "| " + guild.id + " | " + cleanData(guild.name, 30) + " | " + cleanData(guild.channels.size, 6) + " | " + cleanData(guild.roles.size, 6) + " | " + cleanData(guild.memberCount, 8) + " | " + cleanData(curGuildCfg.score, 5) + " | " + cleanData(curGuildCfg.disable_vote, 4) + " | " + cleanData(curGuildCfg.nsfwOnly, 4) + " |\n";
     });
 
     guildsTable += "\n";
