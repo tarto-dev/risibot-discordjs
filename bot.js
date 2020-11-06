@@ -6,12 +6,10 @@ const Sentry = require("@sentry/node");
 const Tracing = require("@sentry/tracing");
 
 Sentry.init({
-    dsn: "https://64e48c5959c74d13b1abf2d43baffb4b@o472921.ingest.sentry.io/5507216"
-});
-
-// We recommend adjusting this value in production, or using tracesSampler
-// for finer control
-tracesSampleRate: 1.0,
+    dsn: "https://64e48c5959c74d13b1abf2d43baffb4b@o472921.ingest.sentry.io/5507216",
+    // We recommend adjusting this value in production, or using tracesSampler
+    // for finer control
+    tracesSampleRate: 1.0,
 });
 
 const client = new Discord.Client();
