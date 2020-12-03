@@ -1,6 +1,9 @@
 # Risibot
 
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/benftwc/risibot-discordjs.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/benftwc/risibot-discordjs/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/benftwc/risibot-discordjs.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/benftwc/risibot-discordjs/context:javascript)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/benftwc/risibot-discordjs.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/benftwc/risibot-discordjs/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/benftwc/risibot-discordjs.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/benftwc/risibot-discordjs/context:javascript) [![Discord Bots](https://top.gg/api/widget/status/484127854326710300.svg)](https://top.gg/bot/484127854326710300) [![Discord Bots](https://top.gg/api/widget/servers/484127854326710300.svg?noavatar=true)](https://top.gg/bot/484127854326710300) [![Discord Bots](https://top.gg/api/widget/upvotes/484127854326710300.svg?noavatar=true)](https://top.gg/bot/484127854326710300)
+
+
+
 
 ## Public commands
 ```
