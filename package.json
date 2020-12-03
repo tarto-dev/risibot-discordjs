@@ -16,7 +16,7 @@
   "license": "WTFPL",
   "dependencies": {
     "@pm2/io": "^4.3.5",
-    "@sentry/node": "^5.27.4",
+    "@sentry/node": "^5.28.0",
     "@sentry/tracing": "^5.28.0",
     "better-sqlite-pool": "^0.3.0",
     "chalk": "^4.1.0",
