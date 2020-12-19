@@ -15,7 +15,6 @@
 +waifu : Return random waifus from risibank
 +score : Get own score
 +top : Get the top10 user list
-+poucave : To get the last used tags within risibank
 ```
 ## Admin commands
 ```
