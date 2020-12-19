@@ -114,7 +114,6 @@ module.exports = (client, message) => {
 
         // Act upon level up by sending a message and updating the user's level in enmap.
         if (curLevel > client.points.get(`${key}`, "level")) {
-            message.reply(`A force de spam des stickers, t'es passé au niveau **${curLevel}**! `);
             client.points.set(`${key}`, curLevel, "level");
         }
 
