@@ -13,8 +13,6 @@
 +invite : get url invite for the bot
 +risibank/+risitas : return last picture that refer to given words from the Risibank database
 +waifu : Return random waifus from risibank
-+score : Get own score
-+top : Get the top10 user list
 ```
 ## Admin commands
 ```
