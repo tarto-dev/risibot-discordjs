@@ -17,7 +17,7 @@
   "dependencies": {
     "@pm2/io": "^4.3.5",
     "@sentry/node": "^5.27.4",
-    "@sentry/tracing": "^5.29.2",
+    "@sentry/tracing": "^5.30.0",
     "better-sqlite-pool": "^0.3.0",
     "chalk": "^4.1.0",
     "dblapi.js": "^2.4.1",
