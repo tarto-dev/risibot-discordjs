@@ -15,7 +15,7 @@
   "author": "Benjamin \"Benftwc\" <benftwc@gmail.com>",
   "license": "WTFPL",
   "dependencies": {
-    "@pm2/io": "^4.3.5",
+    "@pm2/io": "^5.0.0",
     "@sentry/node": "^6.3.5",
     "@sentry/tracing": "^6.3.5",
     "better-sqlite-pool": "^0.3.0",
