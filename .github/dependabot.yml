@@ -1,0 +1,49 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@sentry/node"
+    versions:
+    - 6.0.2
+    - 6.0.3
+    - 6.0.4
+    - 6.1.0
+    - 6.2.0
+    - 6.2.1
+    - 6.2.2
+    - 6.2.3
+    - 6.2.4
+    - 6.2.5
+    - 6.3.0
+    - 6.3.1
+  - dependency-name: "@sentry/tracing"
+    versions:
+    - 6.0.2
+    - 6.0.3
+    - 6.0.4
+    - 6.1.0
+    - 6.2.0
+    - 6.2.1
+    - 6.2.2
+    - 6.2.3
+    - 6.2.4
+    - 6.2.5
+    - 6.3.0
+    - 6.3.1
+  - dependency-name: discord.js
+    versions:
+    - 12.5.1
+    - 12.5.2
+  - dependency-name: jsdom
+    versions:
+    - 16.5.0
+    - 16.5.1
+    - 16.5.2
+  - dependency-name: enmap
+    versions:
+    - 5.8.4
